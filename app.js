@@ -70,6 +70,31 @@ app.get('/add-contact', (req, res) => {
         title: "add contact form"
     })
 })
+app.get('/update/:name', async (req, res) => {
+    const contact = await readContacts({ name: req.params.name });
+
+    res.render('update', {
+        layout: 'layout/main',
+        title: "update form",
+        contact,
+    })
+})
+
+app.post('/update/:name', async (req, res) => {
+    try {
+      const contact = await readContacts({ name: req.params.name });
+      await Contact.updateOne({ name: contact[0].name }, {
+        name: req.body.name,
+        phone: req.body.phone
+      });
+      console.log('Contact updated successfully!');
+      res.redirect('/contact');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+  });
+  
 
 app.delete('/delete/:name', async (req, res) => {
     try {

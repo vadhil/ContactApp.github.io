@@ -20,8 +20,9 @@
                     <p class="card-text"><%= contact[0].email %></p>
                     <!-- <a style="font-weight: 200;" class=" btn btn-danger badge mb-3 py-2 d-block col-5 mx-auto" onclick="return confirm('delete this contact?')" href="/contact/delete/<%= contact.name %>" >delete contact</a>  -->
                     <a href="/contact" style="font-weight: 400;"  class=" btn btn-warning badge mb-3 py-2 text-dark  col-5 mx-auto">&laquo; contact</a> 
+                    <a href="/update/<%= contact[0].name %>" style="font-weight: 400;"  class=" btn btn-dark text-warning badge mb-3 py-2  col-5 mx-auto">update</a> 
                     
-                    <a style="font-weight: 400;"  class=" btn btn-dark text-warning badge mb-3 py-2 col-5 mx-auto"href="/delete/<%= contact[0].name %>" onclick="event.preventDefault(); 
+                    <a style="font-weight: 400;"  class=" btn btn-danger text-white badge mb-3 py-2 col-5 mx-auto"href="/delete/<%= contact[0].name %>" onclick="event.preventDefault(); 
                       if (confirm('Are you sure you want to delete this contact?')) {
                         fetch('/delete/<%= contact[0].name %>', { method: 'DELETE' })
                         .then(() => window.location.href = '/contact')
