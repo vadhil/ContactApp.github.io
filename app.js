@@ -73,23 +73,27 @@ app.get('/add-contact', (req, res) => {
         title: "add contact form"
     })
 })
-// app.get('/:name/deleted', async (req, res) => {
-//     const contact= await readContacts({name : req.params.name});
-//     Contact.deleteOne({ name: 'John Doe' })
-//   .then(() => {
-//     console.log('Contact deleted successfully!');
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-//     res.render('add-contact', {
-//         layout: 'layout/main',
-//         title: "add contact form"
-//     })
-// })
+
+app.delete('/delete/:name', async (req, res) => {
+    try {
+      const contact = await readContacts({ name: req.params.name });
+      if (contact.length === 0) {
+        res.status(404).send('Contact not found');
+        return;
+      }
+      await Contact.deleteOne({ name: contact[0].name });
+      console.log('Contact deleted successfully!');
+      res.redirect('/contact');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+  });
+  
+
 app.get('/contact/:name',  async(req, res) => {
     const contact= await readContacts({name : req.params.name});
-    // console.log(contact[0].name);
+    console.log(contact[0].name);
     res.render('detail', {
         layout: 'layout/main',
         title: "detail contact",
