@@ -2,10 +2,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const {readContacts, Contact} = require('./utils/function');
 
-
 const bodyParser = require('body-parser');
-
-
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,7 +12,7 @@ app.use(expressLayouts);
 app.use(express.static('public'));
 
 
-  //layout
+//layout
 
 app.get('/', (req, res) => {
     res.render('home', {
@@ -89,7 +86,6 @@ app.delete('/delete/:name', async (req, res) => {
       res.status(500).send('Internal server error');
     }
   });
-  
 
 app.get('/contact/:name',  async(req, res) => {
     const contact= await readContacts({name : req.params.name});
