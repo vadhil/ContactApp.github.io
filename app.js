@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.render('home', {
-        layout: 'layout/main',
+        layout: 'home',
         title: 'Home'
     });
 });
@@ -123,9 +123,17 @@ app.get('/contact/:name',  async(req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', {
         layout: 'layout/main',
-        title: "about us"
+        title: "about"
+       
     })
 })
+app.use('', (req, res) => {
+    res.render('chatgpt', {
+        layout: 'chatgpt',
+        title: "chatgpt"
+    })
+})
+
 
 
 
