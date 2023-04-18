@@ -20,25 +20,30 @@ app.get('/', (req, res) => {
         title: 'Home'
     });
 });
-app.get('/playground', (req, res) => {
-    res.render('playground', {
-        layout: 'layout/main',
-        title: "contact ",
-        contacts
-    })
-})
-// app.get('/contact', (req, res) => {
-//     res.render('contact', {
-//         layout: 'layout/main',
+// app.get('/', (req, res) => {
+//   res.render('layout/index', { title: 'App Contact' });
+// });
+// app.get('/playground', (req, res) => {
+//     res.render('playground', {
+//         layout: 'layout/index',
 //         title: "contact ",
 //         contacts
 //     })
-// }) contoh yang salah
+// })
+app.get('/playground', (req, res) => {
+  const title = "Playground";
+  res.render('playground', {
+      layout: 'layout/index',
+      title,
+      contacts
+  })
+})
+
 app.get('/contact', async (req, res) => {
     try {
         const contacts = await readContacts();
         res.render('contact', {
-            layout: 'layout/main',
+            layout: 'layout/index',
             title: "contact ",
             contacts
         });
@@ -66,7 +71,7 @@ app.post('/contact', (req, res) => {
   });
 app.get('/add-contact', (req, res) => {
     res.render('add-contact', {
-        layout: 'layout/main',
+        layout: 'layout/index',
         title: "add contact form"
     })
 })
@@ -74,7 +79,7 @@ app.get('/update/:name', async (req, res) => {
     const contact = await readContacts({ name: req.params.name });
 
     res.render('update', {
-        layout: 'layout/main',
+        layout: 'layout/index',
         title: "update form",
         contact,
     })
@@ -116,13 +121,13 @@ app.get('/contact/:name',  async(req, res) => {
     const contact= await readContacts({name : req.params.name});
     console.log(contact[0].name);
     res.render('detail', {
-        layout: 'layout/main',
+        layout: 'layout/index',
         title: "detail contact",
         contact,
     })})
 app.get('/about', (req, res) => {
     res.render('about', {
-        layout: 'layout/main',
+        layout: 'layout/index',
         title: "about"
        
     })
@@ -144,4 +149,3 @@ const port = 3000;
 app.listen(process.env.PORT || port,() => {
     console.log(`listening on ${port}`);
 });
-
